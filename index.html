@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>EnemyDle - Guess The Game By The Enemy</title>
+
+<meta name="description" content="Guess the horror game by its enemies. Test your survival horror knowledge.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+
+:root{
+--red:#ff1e2d;
+--dark:#050505;
+--gray:#111;
+--light:#f2f2f2;
+}
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+
+font-family:'Roboto',sans-serif;
+background:
+linear-gradient(rgba(0,0,0,.88),rgba(0,0,0,.95)),
+url("img/bg.jpg") center/cover no-repeat;
+
+min-height:100vh;
+color:white;
+overflow-x:hidden;
+
+display:flex;
+justify-content:center;
+align-items:center;
+
+padding:40px;
+
+}
+
+.container{
+
+width:100%;
+max-width:700px;
+
+background:rgba(10,10,10,.92);
+
+border:1px solid #222;
+
+border-radius:20px;
+
+padding:40px;
+
+backdrop-filter:blur(8px);
+
+box-shadow:
+0 0 50px rgba(255,0,0,.08);
+
+}
+
+.logo{
+
+font-family:'Oswald',sans-serif;
+font-size:70px;
+line-height:70px;
+
+text-align:center;
+
+margin-bottom:10px;
+
+letter-spacing:2px;
+
+}
+
+.logo span{
+color:var(--red);
+}
+
+.subtitle{
+
+text-align:center;
+color:#999;
+
+margin-bottom:40px;
+
+font-size:18px;
+
+}
+
+.enemy-box{
+
+position:relative;
+
+border-radius:15px;
+
+overflow:hidden;
+
+border:1px solid #222;
+
+margin-bottom:30px;
+
+}
+
+.enemy-box img{
+
+width:100%;
+height:350px;
+
+object-fit:cover;
+
+display:block;
+
+filter:blur(10px) brightness(.7);
+
+transition:.4s;
+
+}
+
+.enemy-box:hover img{
+filter:blur(7px) brightness(.8);
+}
+
+.enemy-name{
+
+position:absolute;
+
+bottom:0;
+left:0;
+
+width:100%;
+
+padding:18px;
+
+background:linear-gradient(transparent,rgba(0,0,0,.9));
+
+font-family:'Oswald',sans-serif;
+
+font-size:35px;
+
+letter-spacing:1px;
+
+}
+
+.input-area{
+
+display:flex;
+gap:15px;
+
+margin-bottom:25px;
+
+}
+
+.input-area input{
+
+flex:1;
+
+padding:18px;
+
+background:#121212;
+
+border:1px solid #222;
+
+border-radius:10px;
+
+color:white;
+
+font-size:17px;
+
+outline:none;
+
+transition:.3s;
+
+}
+
+.input-area input:focus{
+border-color:var(--red);
+box-shadow:0 0 15px rgba(255,0,0,.2);
+}
+
+.input-area button{
+
+padding:18px 30px;
+
+background:var(--red);
+
+border:none;
+
+border-radius:10px;
+
+color:white;
+
+font-weight:bold;
+
+cursor:pointer;
+
+transition:.3s;
+
+font-size:16px;
+
+}
+
+.input-area button:hover{
+
+transform:translateY(-2px);
+
+box-shadow:0 0 20px var(--red);
+
+}
+
+.result{
+
+text-align:center;
+
+font-size:22px;
+
+font-weight:bold;
+
+margin-bottom:20px;
+
+min-height:30px;
+
+}
+
+.correct{
+color:#4cff77;
+}
+
+.wrong{
+color:#ff5252;
+}
+
+.score-box{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+padding-top:20px;
+
+border-top:1px solid #222;
+
+color:#aaa;
+
+font-size:17px;
+
+}
+
+.next-btn{
+
+width:100%;
+
+margin-top:25px;
+
+padding:18px;
+
+background:#181818;
+
+border:1px solid #222;
+
+border-radius:10px;
+
+color:white;
+
+font-weight:bold;
+
+cursor:pointer;
+
+transition:.3s;
+
+font-size:16px;
+
+}
+
+.next-btn:hover{
+
+border-color:var(--red);
+
+box-shadow:0 0 20px rgba(255,0,0,.15);
+
+}
+
+@media(max-width:768px){
+
+.logo{
+font-size:50px;
+line-height:50px;
+}
+
+.enemy-box img{
+height:260px;
+}
+
+.enemy-name{
+font-size:28px;
+}
+
+.input-area{
+flex-direction:column;
+}
+
+.input-area button{
+width:100%;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1 class="logo">
+ENEMY<span>DLE</span>
+</h1>
+
+<p class="subtitle">
+Guess the horror game by its enemy.
+</p>
+
+<div class="enemy-box">
+
+<img
+id="enemyImage"
+src="img/novistador.jpg"
+alt="Enemy"
+>
+
+<div
+class="enemy-name"
+id="enemyName"
+>
+NOVISTADOR
+</div>
+
+</div>
+
+<div class="input-area">
+
+<input
+type="text"
+id="guessInput"
+placeholder="Type the game name..."
+autocomplete="off"
+>
+
+<button id="guessBtn">
+GUESS
+</button>
+
+</div>
+
+<div
+class="result"
+id="result"
+>
+</div>
+
+<div class="score-box">
+
+<span id="score">
+Score: 0
+</span>
+
+<span id="round">
+Round: 1
+</span>
+
+</div>
+
+<button
+class="next-btn"
+id="nextBtn"
+>
+NEXT ENEMY
+</button>
+
+</div>
+
+<script>
+
+const enemies = [
+
+{
+enemy:"NOVISTADOR",
+game:"resident evil 4",
+image:"img/novistador.jpg"
+},
+
+{
+enemy:"RAT KING",
+game:"the last of us part ii",
+image:"img/ratking.jpg"
+},
+
+{
+enemy:"KEEPER",
+game:"the evil within",
+image:"img/keeper.jpg"
+}
+
+];
+
+let current = 0;
+let score = 0;
+let round = 1;
+
+const enemyImage =
+document.getElementById("enemyImage");
+
+const enemyName =
+document.getElementById("enemyName");
+
+const guessInput =
+document.getElementById("guessInput");
+
+const guessBtn =
+document.getElementById("guessBtn");
+
+const result =
+document.getElementById("result");
+
+const scoreText =
+document.getElementById("score");
+
+const roundText =
+document.getElementById("round");
+
+const nextBtn =
+document.getElementById("nextBtn");
+
+function loadEnemy(){
+
+const data = enemies[current];
+
+enemyImage.src = data.image;
+
+enemyName.textContent = data.enemy;
+
+guessInput.value = "";
+
+result.textContent = "";
+
+result.className = "result";
+
+}
+
+guessBtn.addEventListener("click",()=>{
+
+const answer =
+guessInput.value
+.toLowerCase()
+.trim();
+
+const correct =
+enemies[current]
+.game
+.toLowerCase();
+
+if(answer === correct){
+
+result.textContent =
+"CORRECT";
+
+result.classList.add("correct");
+
+score++;
+
+scoreText.textContent =
+"Score: " + score;
+
+}else{
+
+result.textContent =
+"WRONG — " +
+enemies[current].game.toUpperCase();
+
+result.classList.add("wrong");
+
+}
+
+});
+
+nextBtn.addEventListener("click",()=>{
+
+current++;
+
+round++;
+
+if(current >= enemies.length){
+
+current = 0;
+
+}
+
+roundText.textContent =
+"Round: " + round;
+
+loadEnemy();
+
+});
+
+loadEnemy();
+
+</script>
+
+</body>
+</html>
