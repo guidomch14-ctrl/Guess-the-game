@@ -99,23 +99,32 @@ body{
 .enemy-image-wrap{
   position:relative;
   width:100%;
-  aspect-ratio:16/10;
+  height:650px;
   background:#090909;
+  overflow:hidden;
 }
 
 .enemy-image-wrap img{
   width:100%;
   height:100%;
-  object-fit:cover;
+  object-fit:contain;
   display:block;
-  filter:blur(8px) brightness(.72) contrast(1.05);
-  transform:scale(1.06);
-  transition:filter .25s ease, transform .25s ease;
+
+  filter:
+  brightness(.78)
+  contrast(1.05);
+
+  transition:.25s;
 }
 
 .enemy-card:hover img{
-  filter:blur(6px) brightness(.82) contrast(1.05);
-  transform:scale(1.08);
+
+  filter:
+  brightness(.9)
+  contrast(1.08);
+
+  transform:scale(1.01);
+
 }
 
 .enemy-overlay{
