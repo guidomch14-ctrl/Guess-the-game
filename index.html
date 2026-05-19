@@ -94,6 +94,7 @@ body{
   overflow-x:hidden;
 }
 
+/* BACKGROUND COLLAGE */
 .cover-wall{
   position:fixed;
   inset:0;
@@ -791,24 +792,19 @@ const enemies = [
 ];
 
 const coverPaths = [
-  "img/covers/resident-evil-4.jpg",
-  "img/covers/silent-hill-2.jpg",
-  "img/covers/doom-eternal.jpg",
-  "img/covers/dead-space.jpg",
-  "img/covers/the-evil-within.jpg",
-  "img/covers/bloodborne.jpg",
-  "img/covers/payday-2.jpg",
-  "img/covers/bioshock-infinite.jpg",
-  "img/covers/alien-isolation.jpg",
-  "img/covers/god-of-war.jpg",
-  "img/covers/uncharted-3.jpg",
-  "img/covers/metal-gear-rising.jpg",
-  "img/covers/left-4-dead-2.jpg",
-  "img/covers/killzone-2.jpg",
-  "img/covers/manhunt.jpg",
-  "img/covers/dying-light.jpg",
-  "img/covers/crash-bandicoot.jpg",
-  "img/covers/spyro.jpg"
+  "img/cover/alien-isolation.jpg",
+  "img/cover/bioshock-infinite.jpg",
+  "img/cover/bloodborne.jpg",
+  "img/cover/crash-bandicoot.jpg",
+  "img/cover/dead-space.jpg",
+  "img/cover/doom-eternal.jpg",
+  "img/cover/dying-light.jpg",
+  "img/cover/god-of-war.jpg",
+  "img/cover/killzone-2.jpg",
+  "img/cover/left-4-dead-2.jpg",
+  "img/cover/manhunt.jpg",
+  "img/cover/metal-gear-rising.jpg",
+  "img/cover/payday-2.jpg"
 ];
 
 let currentEnemy = null;
@@ -952,6 +948,10 @@ function buildCoverWall(){
     img.src = src;
     img.alt = "";
     img.loading = "lazy";
+
+    img.onerror = () => {
+      tile.remove();
+    };
 
     tile.appendChild(img);
     wall.appendChild(tile);
