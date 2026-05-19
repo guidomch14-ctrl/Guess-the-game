@@ -490,6 +490,9 @@ footer{
   </footer>
 </div>
 
+<audio id="correctSound" src="sounds/correct.mp3" preload="auto"></audio>
+<audio id="wrongSound" src="sounds/wrong.mp3" preload="auto"></audio>
+
 <script>
 const enemies = [
   {
@@ -823,6 +826,12 @@ const streakValue = document.getElementById("streakValue");
 const roundValue = document.getElementById("roundValue");
 const wall = document.querySelector(".cover-wall");
 
+const correctSound = document.getElementById("correctSound");
+const wrongSound = document.getElementById("wrongSound");
+
+correctSound.volume = 0.6;
+wrongSound.volume = 0.6;
+
 function normalize(text){
   return text
     .toLowerCase()
@@ -857,6 +866,9 @@ function pickRandomEnemy(){
 }
 
 function correctAnswer(){
+  correctSound.currentTime = 0;
+  correctSound.play().catch(() => {});
+
   score++;
   streak++;
   round++;
@@ -870,6 +882,9 @@ function correctAnswer(){
 }
 
 function wrongAnswer(){
+  wrongSound.currentTime = 0;
+  wrongSound.play().catch(() => {});
+
   feedback.textContent = "WRONG — RUN RESET";
   feedback.className = "feedback bad";
   score = 0;
