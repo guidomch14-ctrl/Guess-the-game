@@ -130,9 +130,14 @@ body{
 .enemy-overlay{
   position:absolute;
   inset:0;
+
   background:
-    radial-gradient(circle at center, rgba(255,30,45,.08), transparent 55%),
-    linear-gradient(to top, rgba(0,0,0,.9), rgba(0,0,0,.12) 45%, transparent);
+  linear-gradient(
+  to top,
+  rgba(0,0,0,.75),
+  rgba(0,0,0,.08)
+  );
+
   pointer-events:none;
 }
 
@@ -285,7 +290,7 @@ footer{
   }
 
   .enemy-image-wrap{
-    aspect-ratio:4/3;
+  height:420px;
   }
 }
 </style>
