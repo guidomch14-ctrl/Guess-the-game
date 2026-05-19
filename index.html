@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>EnemyDle - Guess The Game By The Enemy</title>
-<meta name="description" content="Guess the Game By The Enemy es un juego online gratuito donde debes adivinar videojuegos por sus enemigos, monstruos y villanos. Pon a prueba tus conocimientos gamer con personajes de Resident Evil, Doom, Silent Hill, God of War, Dead Space y muchos más.">
+<meta name="description" content="Guess the Game By The Enemy is a free online videogame quiz where you identify games by their enemies, monsters and villains.">
 <meta name="keywords" content="
 guess the game,
 guess the game by enemy,
@@ -49,14 +49,15 @@ enemigos de videojuegos,
 monstruos de videojuegos,
 quiz de terror,
 quiz online gratis,
-juegos online"
->
+juegos online
+">
 <meta name="robots" content="index, follow">
 <meta name="theme-color" content="#ff1e2d">
+<link rel="canonical" href="https://guess-the-game-phi.vercel.app/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
-<link rel="canonical" href="https://guess-the-game-phi.vercel.app/">
+
 <style>
 :root{
   --red:#ff1e2d;
@@ -84,24 +85,66 @@ body{
   min-height:100vh;
   font-family:'Roboto',sans-serif;
   color:var(--text);
-  background:
-    linear-gradient(rgba(0,0,0,.82), rgba(0,0,0,.93)),
-    url("img/bg.jpg") center/cover no-repeat fixed;
+  background:#050505;
   display:flex;
   justify-content:center;
   align-items:center;
   padding:24px;
+  position:relative;
+  overflow-x:hidden;
+}
+
+.cover-wall{
+  position:fixed;
+  inset:0;
+  z-index:0;
+  overflow:hidden;
+  background:#050505;
+  pointer-events:none;
+}
+
+.cover-wall::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(rgba(0,0,0,.55), rgba(0,0,0,.88)),
+    radial-gradient(circle at center, rgba(255,30,45,.09), transparent 60%);
+  z-index:2;
+}
+
+.cover-tile{
+  position:absolute;
+  width:180px;
+  height:260px;
+  border-radius:16px;
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,.08);
+  box-shadow:0 12px 30px rgba(0,0,0,.55);
+  opacity:.92;
+  transform:rotate(var(--rot));
+  z-index:1;
+}
+
+.cover-tile img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+  filter:saturate(.95) contrast(1.05) brightness(.74);
 }
 
 .shell{
   width:100%;
-  max-width:820px;
+  max-width:920px;
   background:rgba(10,10,10,.94);
   border:1px solid var(--border);
   border-radius:24px;
   box-shadow:0 0 60px rgba(255,0,0,.08);
   backdrop-filter:blur(10px);
   overflow:hidden;
+  position:relative;
+  z-index:1;
 }
 
 .topbar{
@@ -155,35 +198,19 @@ body{
   height:100%;
   object-fit:contain;
   display:block;
-
-  filter:
-  brightness(.78)
-  contrast(1.05);
-
+  filter:brightness(.78) contrast(1.05);
   transition:.25s;
 }
 
 .enemy-card:hover img{
-
-  filter:
-  brightness(.9)
-  contrast(1.08);
-
+  filter:brightness(.9) contrast(1.08);
   transform:scale(1.01);
-
 }
 
 .enemy-overlay{
   position:absolute;
   inset:0;
-
-  background:
-  linear-gradient(
-  to top,
-  rgba(0,0,0,.75),
-  rgba(0,0,0,.08)
-  );
-
+  background:linear-gradient(to top, rgba(0,0,0,.75), rgba(0,0,0,.08));
   pointer-events:none;
 }
 
@@ -310,6 +337,27 @@ body{
   font-size:14px;
 }
 
+.seo-text{
+  margin-top:10px;
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:18px;
+  padding:28px;
+}
+
+.seo-text h2{
+  font-family:'Oswald',sans-serif;
+  font-size:38px;
+  margin-bottom:20px;
+}
+
+.seo-text p{
+  color:#b8b8b8;
+  line-height:30px;
+  margin-bottom:18px;
+  font-size:16px;
+}
+
 footer{
   padding:0 28px 28px;
   color:#777;
@@ -336,27 +384,6 @@ footer{
   color:var(--red);
 }
 
-.seo-text{
-  margin-top:10px;
-  background:var(--panel);
-  border:1px solid var(--border);
-  border-radius:18px;
-  padding:28px;
-}
-
-.seo-text h2{
-  font-family:'Oswald',sans-serif;
-  font-size:38px;
-  margin-bottom:20px;
-}
-
-.seo-text p{
-  color:#b8b8b8;
-  line-height:30px;
-  margin-bottom:18px;
-  font-size:16px;
-}
-
 @media (max-width: 720px){
   .shell{
     border-radius:18px;
@@ -375,12 +402,19 @@ footer{
   }
 
   .enemy-image-wrap{
-  height:420px;
+    height:420px;
+  }
+
+  .cover-tile{
+    width:120px;
+    height:170px;
   }
 }
 </style>
 </head>
 <body>
+
+<div class="cover-wall" aria-hidden="true"></div>
 
 <div class="shell">
   <div class="topbar">
@@ -429,611 +463,504 @@ footer{
     <div class="help">
       Escribí el nombre exacto del juego. No importa si usás mayúsculas o minúsculas. Si un enemigo puede pertenecer a más de un juego de la saga, agregamos varias respuestas válidas en el código.
     </div>
+
+    <section class="seo-text">
+      <h2>ABOUT ENEMYDLE</h2>
+      <p>EnemyDle is a free online videogame quiz where players must guess the game by looking at enemies, monsters, villains and bosses from famous franchises.</p>
+      <p>The game includes characters from survival horror, FPS, action and adventure games such as Resident Evil, Silent Hill, Doom, God of War, Dead Space, Alien Isolation, Bloodborne and many more.</p>
+      <p>Each round randomly selects a different enemy image. Players must type the correct videogame title to continue their streak and increase their score.</p>
+      <p>EnemyDle supports multiple valid answers, case-insensitive guesses and random enemy rotations for better replayability.</p>
+      <p>New enemies, bosses and videogames will continue to be added over time with future updates.</p>
+    </section>
   </div>
 
   <footer>
-    Fan-made quiz game. Add your own enemy images inside the <strong>img</strong> folder and update the database in the script.
+    <p>
+      Fan-made quiz game. Add your own enemy images inside the <strong>img</strong> folder and update the database in the script.
+    </p>
 
-    <section class="seo-text">
-
-<h2>
-ABOUT ENEMYDLE
-</h2>
-
-<p>
-EnemyDle is a free online videogame quiz where players must guess the game by looking at enemies, monsters, villains and bosses from famous franchises.
-</p>
-
-<p>
-The game includes characters from survival horror, FPS, action and adventure games such as Resident Evil, Silent Hill, Doom, God of War, Dead Space, Alien Isolation, Bloodborne and many more.
-</p>
-
-<p>
-Each round randomly selects a different enemy image. Players must type the correct videogame title to continue their streak and increase their score.
-</p>
-
-<p>
-EnemyDle supports multiple valid answers, case-insensitive guesses and random enemy rotations for better replayability.
-</p>
-
-<p>
-New enemies, bosses and videogames will continue to be added over time with future updates.
-</p>
-
-</section>
-
-<div class="footer-links">
-
-<a href="sobre-nosotros.html">
-About
-</a>
-
-<a href="contacto.html">
-Contact
-</a>
-
-<a href="privacidad.html">
-Privacy Policy
-</a>
-
-<a href="terminos-y-condiciones.html">
-Terms
-</a>
-
-<a href="politica-de-cookies.html">
-Cookies
-</a>
-
-</div>
-    
+    <div class="footer-links">
+      <a href="sobre-nosotros.html">About</a>
+      <a href="contacto.html">Contact</a>
+      <a href="privacidad.html">Privacy Policy</a>
+      <a href="terminos-y-condiciones.html">Terms</a>
+      <a href="politica-de-cookies.html">Cookies</a>
+    </div>
   </footer>
 </div>
 
 <script>
-
 const enemies = [
+  {
+    image:"img/juggernaut.jpg",
+    answers:[
+      "call of duty",
+      "cod",
+      "modern warfare",
+      "call of duty modern warfare"
+    ]
+  },
+  {
+    image:"img/novistador.jpg",
+    answers:[
+      "resident evil 4",
+      "re4",
+      "resident evil 4 remake"
+    ]
+  },
+  {
+    image:"img/verdugo.jpg",
+    answers:[
+      "resident evil 5",
+      "re5"
+    ]
+  },
+  {
+    image:"img/javo.jpg",
+    answers:[
+      "resident evil 6",
+      "re6"
+    ]
+  },
+  {
+    image:"img/sadico.jpg",
+    answers:[
+      "the evil within",
+      "evil within",
+      "the evil within 1"
+    ]
+  },
+  {
+    image:"img/chunk.jpg",
+    answers:[
+      "requiem",
+      "resident evil requiem",
+      "re requiem"
+    ]
+  },
+  {
+    image:"img/cyborghammer.jpg",
+    answers:[
+      "metal gear rising",
+      "metal gear rising revengeance",
+      "mgr",
+      "mgrr"
+    ]
+  },
+  {
+    image:"img/replica.jpg",
+    answers:[
+      "fear",
+      "f.e.a.r",
+      "f.e.a.r."
+    ]
+  },
+  {
+    image:"img/djinn.jpg",
+    answers:[
+      "uncharted 3",
+      "uncharted 3 drakes deception"
+    ]
+  },
+  {
+    image:"img/patriot.jpg",
+    answers:[
+      "bioshock infinite",
+      "bioshock"
+    ]
+  },
+  {
+    image:"img/android.jpg",
+    answers:[
+      "alien isolation",
+      "alien isolation"
+    ]
+  },
+  {
+    image:"img/leadingidol.jpg",
+    answers:[
+      "persona 4",
+      "persona 4 golden"
+    ]
+  },
+  {
+    image:"img/divider.jpg",
+    answers:[
+      "dead space",
+      "dead space remake"
+    ]
+  },
+  {
+    image:"img/dragan.jpg",
+    answers:[
+      "uncharted 2",
+      "uncharted 2 among thieves"
+    ]
+  },
+  {
+    image:"img/grenadier.jpg",
+    answers:[
+      "killzone",
+      "killzone 2",
+      "killzone 3"
+    ]
+  },
+  {
+    image:"img/tyrantdmc.jpg",
+    answers:[
+      "dmc devil may cry",
+      "dmc"
+    ]
+  },
+  {
+    image:"img/hunter.jpg",
+    answers:[
+      "resident evil",
+      "resident evil remake",
+      "re1"
+    ]
+  },
+  {
+    image:"img/pirategunner.jpg",
+    answers:[
+      "far cry 3"
+    ]
+  },
+  {
+    image:"img/guardian.jpg",
+    answers:[
+      "the evil within 2",
+      "evil within 2"
+    ]
+  },
+  {
+    image:"img/ooze.jpg",
+    answers:[
+      "resident evil revelations",
+      "re revelations"
+    ]
+  },
+  {
+    image:"img/slinger.jpg",
+    answers:[
+      "resident evil revelations 2",
+      "re revelations 2"
+    ]
+  },
+  {
+    image:"img/draugr.jpg",
+    answers:[
+      "god of war",
+      "gow"
+    ]
+  },
+  {
+    image:"img/legionnaire.jpg",
+    answers:[
+      "god of war",
+      "gow"
+    ]
+  },
+  {
+    image:"img/cacodemon.jpg",
+    answers:[
+      "doom",
+      "doom eternal"
+    ]
+  },
+  {
+    image:"img/bubbleheadnurse.jpg",
+    answers:[
+      "silent hill",
+      "silent hill 2"
+    ]
+  },
+  {
+    image:"img/unstoppable.jpg",
+    answers:[
+      "borderlands",
+      "borderlands 2"
+    ]
+  },
+  {
+    image:"img/cloaker.jpg",
+    answers:[
+      "payday 2",
+      "payday"
+    ]
+  },
+  {
+    image:"img/bonebreaker.jpg",
+    answers:[
+      "diablo",
+      "diablo 2",
+      "diablo 3",
+      "diablo iv",
+      "diablo 4"
+    ]
+  },
+  {
+    image:"img/deathshead.jpg",
+    answers:[
+      "wolfenstein",
+      "wolfenstein the new order"
+    ]
+  },
+  {
+    image:"img/brotherhood.jpg",
+    answers:[
+      "the darkness 2",
+      "darkness 2"
+    ]
+  },
+  {
+    image:"img/silverbeast.jpg",
+    answers:[
+      "bloodborne"
+    ]
+  },
+  {
+    image:"img/bloater.jpg",
+    answers:[
+      "the last of us",
+      "the last of us part 1",
+      "tlou"
+    ]
+  },
+  {
+    image:"img/supra.jpg",
+    answers:[
+      "need for speed most wanted",
+      "nfs most wanted",
+      "nfsmw"
+    ]
+  },
+  {
+    image:"img/smileys.jpg",
+    answers:[
+      "manhunt",
+      "manhunt 1"
+    ]
+  },
+  {
+    image:"img/watchdogs.jpg",
+    answers:[
+      "manhunt 2"
+    ]
+  },
+  {
+    image:"img/bandanna.jpg",
+    answers:[
+      "god hand"
+    ]
+  },
+  {
+    image:"img/thieves.jpg",
+    answers:[
+      "spyro",
+      "spyro the dragon"
+    ]
+  },
+  {
+    image:"img/carnivora.jpg",
+    answers:[
+      "crash bandicoot",
+      "crash"
+    ]
+  },
+  {
+    image:"img/volatile.jpg",
+    answers:[
+      "dying light"
+    ]
+  },
+  {
+    image:"img/gaszombie.jpg",
+    answers:[
+      "dead rising 2"
+    ]
+  },
+  {
+    image:"img/mrhorf.jpg",
+    answers:[
+      "the binding of isaac",
+      "binding of isaac",
+      "isaac"
+    ]
+  }
+];
 
-{
-image:"img/juggernaut.jpg",
-answers:[
-"call of duty",
-"cod",
-"modern warfare",
-"call of duty modern warfare"
-]
-},
-
-{
-image:"img/novistador.jpg",
-answers:[
-"resident evil 4",
-"re4",
-"resident evil 4 remake"
-]
-},
-
-{
-image:"img/verdugo.jpg",
-answers:[
-"resident evil 5",
-"re5"
-]
-},
-
-{
-image:"img/javo.jpg",
-answers:[
-"resident evil 6",
-"re6"
-]
-},
-
-{
-image:"img/sadico.jpg",
-answers:[
-"the evil within",
-"evil within",
-"the evil within 1"
-]
-},
-
-{
-image:"img/chunk.jpg",
-answers:[
-"requiem",
-"resident evil requiem",
-"re requiem"
-]
-},
-
-{
-image:"img/cyborghammer.jpg",
-answers:[
-"metal gear rising",
-"metal gear rising revengeance",
-"mgr",
-"mgrr"
-]
-},
-
-{
-image:"img/replica.jpg",
-answers:[
-"fear",
-"f.e.a.r",
-"f.e.a.r."
-]
-},
-
-{
-image:"img/djinn.jpg",
-answers:[
-"uncharted 3",
-"uncharted 3 drakes deception"
-]
-},
-
-{
-image:"img/patriot.jpg",
-answers:[
-"bioshock infinite",
-"bioshock"
-]
-},
-
-{
-image:"img/android.jpg",
-answers:[
-"alien isolation",
-"alien: isolation"
-]
-},
-
-{
-image:"img/leadingidol.jpg",
-answers:[
-"persona 4",
-"persona 4 golden"
-]
-},
-
-{
-image:"img/divider.jpg",
-answers:[
-"dead space",
-"dead space remake"
-]
-},
-
-{
-image:"img/dragan.jpg",
-answers:[
-"uncharted 2",
-"uncharted 2 among thieves"
-]
-},
-
-{
-image:"img/grenadier.jpg",
-answers:[
-"killzone",
-"killzone 2",
-"killzone 3"
-]
-},
-
-{
-image:"img/tyrantdmc.jpg",
-answers:[
-"dmc devil may cry",
-"dmc"
-]
-},
-
-{
-image:"img/hunter.jpg",
-answers:[
-"resident evil",
-"resident evil remake",
-"re1"
-]
-},
-
-{
-image:"img/pirategunner.jpg",
-answers:[
-"far cry 3"
-]
-},
-
-{
-image:"img/guardian.jpg",
-answers:[
-"the evil within 2",
-"evil within 2"
-]
-},
-
-{
-image:"img/ooze.jpg",
-answers:[
-"resident evil revelations",
-"re revelations"
-]
-},
-
-{
-image:"img/slinger.jpg",
-answers:[
-"resident evil revelations 2",
-"re revelations 2"
-]
-},
-
-{
-image:"img/draugr.jpg",
-answers:[
-"god of war",
-"gow"
-]
-},
-
-{
-image:"img/legionnaire.jpg",
-answers:[
-"god of war",
-"gow"
-]
-},
-
-{
-image:"img/cacodemon.jpg",
-answers:[
-"doom",
-"doom eternal"
-]
-},
-
-{
-image:"img/bubbleheadnurse.jpg",
-answers:[
-"silent hill",
-"silent hill 2"
-]
-},
-
-{
-image:"img/unstoppable.jpg",
-answers:[
-"borderlands",
-"borderlands 2"
-]
-},
-
-{
-image:"img/cloaker.jpg",
-answers:[
-"payday 2",
-"payday"
-]
-},
-
-{
-image:"img/bonebreaker.jpg",
-answers:[
-"diablo",
-"diablo 2",
-"diablo 3",
-"diablo iv",
-"diablo 4"
-]
-},
-
-{
-image:"img/deathshead.jpg",
-answers:[
-"wolfenstein",
-"wolfenstein the new order"
-]
-},
-
-{
-image:"img/brotherhood.jpg",
-answers:[
-"the darkness 2",
-"darkness 2"
-]
-},
-
-{
-image:"img/silverbeast.jpg",
-answers:[
-"bloodborne"
-]
-},
-
-{
-image:"img/bloater.jpg",
-answers:[
-"the last of us",
-"the last of us part 1",
-"tlou"
-]
-},
-
-{
-image:"img/supra.jpg",
-answers:[
-"need for speed most wanted",
-"nfs most wanted",
-"nfsmw"
-]
-},
-
-{
-image:"img/smileys.jpg",
-answers:[
-"manhunt",
-"manhunt 1"
-]
-},
-
-{
-image:"img/watchdogs.jpg",
-answers:[
-"manhunt 2"
-]
-},
-
-{
-image:"img/bandanna.jpg",
-answers:[
-"god hand"
-]
-},
-
-{
-image:"img/thieves.jpg",
-answers:[
-"spyro",
-"spyro the dragon"
-]
-},
-
-{
-image:"img/carnivora.jpg",
-answers:[
-"crash bandicoot",
-"crash"
-]
-},
-
-{
-image:"img/volatile.jpg",
-answers:[
-"dying light"
-]
-},
-
-{
-image:"img/gaszombie.jpg",
-answers:[
-"dead rising 2"
-]
-},
-
-{
-image:"img/mrhorf.jpg",
-answers:[
-"the binding of isaac",
-"binding of isaac",
-"isaac"
-]
-}
-
+const coverPaths = [
+  "img/covers/resident-evil-4.jpg",
+  "img/covers/silent-hill-2.jpg",
+  "img/covers/doom-eternal.jpg",
+  "img/covers/dead-space.jpg",
+  "img/covers/the-evil-within.jpg",
+  "img/covers/bloodborne.jpg",
+  "img/covers/payday-2.jpg",
+  "img/covers/bioshock-infinite.jpg",
+  "img/covers/alien-isolation.jpg",
+  "img/covers/god-of-war.jpg",
+  "img/covers/uncharted-3.jpg",
+  "img/covers/metal-gear-rising.jpg",
+  "img/covers/left-4-dead-2.jpg",
+  "img/covers/killzone-2.jpg",
+  "img/covers/manhunt.jpg",
+  "img/covers/dying-light.jpg",
+  "img/covers/crash-bandicoot.jpg",
+  "img/covers/spyro.jpg"
 ];
 
 let currentEnemy = null;
-
 let score = 0;
-
 let streak = 0;
-
 let round = 1;
-
 let usedIndexes = [];
 
-const enemyImage =
-document.getElementById("enemyImage");
-
-const guessInput =
-document.getElementById("guessInput");
-
-const guessBtn =
-document.getElementById("guessBtn");
-
-const nextBtn =
-document.getElementById("nextBtn");
-
-const feedback =
-document.getElementById("feedback");
-
-const scoreValue =
-document.getElementById("scoreValue");
-
-const streakValue =
-document.getElementById("streakValue");
-
-const roundValue =
-document.getElementById("roundValue");
+const enemyImage = document.getElementById("enemyImage");
+const guessInput = document.getElementById("guessInput");
+const guessBtn = document.getElementById("guessBtn");
+const nextBtn = document.getElementById("nextBtn");
+const feedback = document.getElementById("feedback");
+const scoreValue = document.getElementById("scoreValue");
+const streakValue = document.getElementById("streakValue");
+const roundValue = document.getElementById("roundValue");
+const wall = document.querySelector(".cover-wall");
 
 function normalize(text){
-
-return text
-.toLowerCase()
-.trim()
-.replace(/[^\p{L}\p{N}\s]/gu,"")
-.replace(/\s+/g," ");
-
-}
-
-function pickRandomEnemy(){
-
-if(usedIndexes.length >= enemies.length){
-
-usedIndexes = [];
-
-}
-
-let index;
-
-do{
-
-index =
-Math.floor(
-Math.random() * enemies.length
-);
-
-}while(
-usedIndexes.includes(index)
-&&
-usedIndexes.length < enemies.length
-);
-
-usedIndexes.push(index);
-
-currentEnemy = enemies[index];
-
-enemyImage.src =
-currentEnemy.image;
-
-guessInput.value = "";
-
-feedback.textContent = "";
-
-feedback.className =
-"feedback";
-
-guessInput.focus();
-
+  return text
+    .toLowerCase()
+    .trim()
+    .replace(/[^\p{L}\p{N}\s]/gu,"")
+    .replace(/\s+/g," ");
 }
 
 function updateStats(){
+  scoreValue.textContent = score;
+  streakValue.textContent = streak;
+  roundValue.textContent = round;
+}
 
-scoreValue.textContent =
-score;
+function pickRandomEnemy(){
+  if(usedIndexes.length >= enemies.length){
+    usedIndexes = [];
+  }
 
-streakValue.textContent =
-streak;
+  let index;
+  do{
+    index = Math.floor(Math.random() * enemies.length);
+  }while(usedIndexes.includes(index) && usedIndexes.length < enemies.length);
 
-roundValue.textContent =
-round;
-
+  usedIndexes.push(index);
+  currentEnemy = enemies[index];
+  enemyImage.src = currentEnemy.image;
+  guessInput.value = "";
+  feedback.textContent = "";
+  feedback.className = "feedback";
+  guessInput.focus();
 }
 
 function correctAnswer(){
+  score++;
+  streak++;
+  round++;
+  updateStats();
+  feedback.textContent = "CORRECT +1";
+  feedback.className = "feedback good";
 
-score++;
-
-streak++;
-
-round++;
-
-updateStats();
-
-feedback.textContent =
-"CORRECT +1";
-
-feedback.className =
-"feedback good";
-
-setTimeout(()=>{
-
-pickRandomEnemy();
-
-},700);
-
+  setTimeout(() => {
+    pickRandomEnemy();
+  }, 700);
 }
 
 function wrongAnswer(){
+  feedback.textContent = "WRONG — RUN RESET";
+  feedback.className = "feedback bad";
+  score = 0;
+  streak = 0;
+  round = 1;
+  updateStats();
 
-feedback.textContent =
-"WRONG — RUN RESET";
-
-feedback.className =
-"feedback bad";
-
-score = 0;
-
-streak = 0;
-
-round = 1;
-
-updateStats();
-
-setTimeout(()=>{
-
-pickRandomEnemy();
-
-},900);
-
+  setTimeout(() => {
+    pickRandomEnemy();
+  }, 900);
 }
 
 function checkAnswer(){
+  if(!currentEnemy) return;
 
-if(!currentEnemy) return;
+  const userAnswer = normalize(guessInput.value);
+  const validAnswers = currentEnemy.answers.map(normalize);
 
-const userAnswer =
-normalize(
-guessInput.value
-);
-
-const validAnswers =
-currentEnemy.answers.map(normalize);
-
-if(validAnswers.includes(userAnswer)){
-
-correctAnswer();
-
-}else{
-
-wrongAnswer();
-
+  if(validAnswers.includes(userAnswer)){
+    correctAnswer();
+  }else{
+    wrongAnswer();
+  }
 }
 
+guessBtn.addEventListener("click", checkAnswer);
+
+guessInput.addEventListener("keydown", (e) => {
+  if(e.key === "Enter"){
+    checkAnswer();
+  }
+});
+
+nextBtn.addEventListener("click", () => {
+  pickRandomEnemy();
+});
+
+function buildCoverWall(){
+  if(!wall) return;
+
+  const positions = [
+    { top:"2%", left:"1%", rot:"-8deg" },
+    { top:"6%", left:"12%", rot:"4deg" },
+    { top:"1%", left:"26%", rot:"-3deg" },
+    { top:"5%", left:"40%", rot:"6deg" },
+    { top:"3%", left:"56%", rot:"-5deg" },
+    { top:"7%", left:"71%", rot:"4deg" },
+    { top:"2%", left:"84%", rot:"-7deg" },
+
+    { top:"34%", left:"0%", rot:"2deg" },
+    { top:"31%", left:"14%", rot:"-6deg" },
+    { top:"35%", left:"28%", rot:"5deg" },
+    { top:"32%", left:"44%", rot:"-3deg" },
+    { top:"36%", left:"60%", rot:"7deg" },
+    { top:"33%", left:"76%", rot:"-4deg" },
+    { top:"30%", left:"90%", rot:"3deg" },
+
+    { top:"66%", left:"3%", rot:"-5deg" },
+    { top:"63%", left:"18%", rot:"6deg" },
+    { top:"67%", left:"34%", rot:"-2deg" },
+    { top:"64%", left:"50%", rot:"5deg" },
+    { top:"68%", left:"66%", rot:"-6deg" },
+    { top:"65%", left:"82%", rot:"4deg" }
+  ];
+
+  coverPaths.forEach((src, i) => {
+    const pos = positions[i % positions.length];
+
+    const tile = document.createElement("div");
+    tile.className = "cover-tile";
+    tile.style.top = pos.top;
+    tile.style.left = pos.left;
+    tile.style.setProperty("--rot", pos.rot);
+
+    const img = document.createElement("img");
+    img.src = src;
+    img.alt = "";
+    img.loading = "lazy";
+
+    tile.appendChild(img);
+    wall.appendChild(tile);
+  });
 }
 
-guessBtn.addEventListener(
-"click",
-checkAnswer
-);
-
-guessInput.addEventListener(
-"keydown",
-(e)=>{
-
-if(e.key === "Enter"){
-
-checkAnswer();
-
-}
-
-}
-);
-
-nextBtn.addEventListener(
-"click",
-()=>{
-
+buildCoverWall();
 pickRandomEnemy();
-
-}
-);
-
-pickRandomEnemy();
-
 updateStats();
-
 </script>
 
 </body>
