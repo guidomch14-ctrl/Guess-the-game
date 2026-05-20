@@ -915,7 +915,24 @@ const coverPaths = [
   "img/cover/left-4-dead-2.jpg",
   "img/cover/manhunt.jpg",
   "img/cover/metal-gear-rising.jpg",
-  "img/cover/payday-2.jpg"
+  "img/cover/payday-2.jpg",
+  "img/cover/sekiro.jpg",
+  "img/cover/metro-exodus.jpg",
+  "img/cover/cuphead.jpg",
+  "img/cover/atomic-heart.jpg",
+  "img/cover/jedi-survivor.jpg",
+  "img/cover/tomb-raider.jpg",
+  "img/cover/street-fighter-6.jpg",
+  "img/cover/mortal-kombat-x.jpg",
+  "img/cover/alan-wake.jpg",
+  "img/cover/dishonored.jpg",
+  "img/cover/lies-of-p.jpg",
+  "img/cover/undertale.jpg",
+  "img/cover/mgs3.jpg",
+  "img/cover/enter-the-gungeon.jpg",
+  "img/cover/the-last-of-us.jpg",
+  "img/cover/wolfenstein.jpg",
+  "img/cover/diablo-4.jpg"
 ];
 
 let currentEnemy = null;
@@ -1034,29 +1051,43 @@ function buildCoverWall(){
   if(!wall) return;
 
   const positions = [
-    { top:"2%", left:"1%", rot:"-8deg" },
-    { top:"6%", left:"12%", rot:"4deg" },
-    { top:"1%", left:"26%", rot:"-3deg" },
-    { top:"5%", left:"40%", rot:"6deg" },
-    { top:"3%", left:"56%", rot:"-5deg" },
-    { top:"7%", left:"71%", rot:"4deg" },
-    { top:"2%", left:"84%", rot:"-7deg" },
+  { top:"1%", left:"1%", rot:"-8deg" },
+  { top:"3%", left:"11%", rot:"5deg" },
+  { top:"2%", left:"21%", rot:"-4deg" },
+  { top:"4%", left:"31%", rot:"6deg" },
+  { top:"1%", left:"41%", rot:"-5deg" },
+  { top:"3%", left:"51%", rot:"4deg" },
+  { top:"2%", left:"61%", rot:"-6deg" },
+  { top:"4%", left:"71%", rot:"5deg" },
+  { top:"1%", left:"81%", rot:"-4deg" },
 
-    { top:"34%", left:"0%", rot:"2deg" },
-    { top:"31%", left:"14%", rot:"-6deg" },
-    { top:"35%", left:"28%", rot:"5deg" },
-    { top:"32%", left:"44%", rot:"-3deg" },
-    { top:"36%", left:"60%", rot:"7deg" },
-    { top:"33%", left:"76%", rot:"-4deg" },
-    { top:"30%", left:"90%", rot:"3deg" },
+  { top:"28%", left:"0%", rot:"4deg" },
+  { top:"30%", left:"10%", rot:"-6deg" },
+  { top:"27%", left:"20%", rot:"5deg" },
+  { top:"29%", left:"30%", rot:"-4deg" },
+  { top:"31%", left:"40%", rot:"6deg" },
+  { top:"28%", left:"50%", rot:"-5deg" },
+  { top:"30%", left:"60%", rot:"4deg" },
+  { top:"27%", left:"70%", rot:"-6deg" },
+  { top:"29%", left:"80%", rot:"5deg" },
 
-    { top:"66%", left:"3%", rot:"-5deg" },
-    { top:"63%", left:"18%", rot:"6deg" },
-    { top:"67%", left:"34%", rot:"-2deg" },
-    { top:"64%", left:"50%", rot:"5deg" },
-    { top:"68%", left:"66%", rot:"-6deg" },
-    { top:"65%", left:"82%", rot:"4deg" }
-  ];
+  { top:"55%", left:"2%", rot:"-5deg" },
+  { top:"58%", left:"12%", rot:"6deg" },
+  { top:"54%", left:"22%", rot:"-4deg" },
+  { top:"57%", left:"32%", rot:"5deg" },
+  { top:"55%", left:"42%", rot:"-6deg" },
+  { top:"58%", left:"52%", rot:"4deg" },
+  { top:"54%", left:"62%", rot:"-5deg" },
+  { top:"57%", left:"72%", rot:"6deg" },
+  { top:"55%", left:"82%", rot:"-4deg" },
+
+  { top:"80%", left:"5%", rot:"5deg" },
+  { top:"82%", left:"18%", rot:"-6deg" },
+  { top:"79%", left:"31%", rot:"4deg" },
+  { top:"81%", left:"44%", rot:"-5deg" },
+  { top:"80%", left:"57%", rot:"6deg" },
+  { top:"82%", left:"70%", rot:"-4deg" }
+];
 
   coverPaths.forEach((src, i) => {
     const pos = positions[i % positions.length];
