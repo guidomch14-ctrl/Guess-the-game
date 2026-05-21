@@ -509,14 +509,16 @@ const enemies = [
     answers:[
       "resident evil 4",
       "re4",
-      "resident evil 4 remake"
+      "resident evil 4 remake",
+      "re 4"
     ]
   },
   {
     image:"img/verdugo.jpg",
     answers:[
       "resident evil 5",
-      "re5"
+      "re5",
+      "re 5"
     ]
   },
   {
@@ -524,6 +526,7 @@ const enemies = [
     answers:[
       "resident evil 6",
       "re6"
+      "re 6"
     ]
   },
   {
@@ -599,6 +602,7 @@ const enemies = [
     answers:[
       "uncharted 2",
       "uncharted 2 among thieves"
+      "uncharted 3
     ]
   },
   {
@@ -621,7 +625,9 @@ const enemies = [
     answers:[
       "resident evil",
       "resident evil remake",
-      "re1"
+      "re1",
+      "resident evil 1",
+      "re 1"
     ]
   },
   {
@@ -655,14 +661,18 @@ const enemies = [
     image:"img/draugr.jpg",
     answers:[
       "god of war",
-      "gow"
+      "gow",
+      "gow 2018",
+      "god of war 2018"
     ]
   },
   {
     image:"img/legionnaire.jpg",
     answers:[
       "god of war",
-      "gow"
+      "gow",
+      "god of war 2",
+      "gow 2"
     ]
   },
   {
@@ -670,6 +680,7 @@ const enemies = [
     answers:[
       "doom",
       "doom eternal"
+      "doom 2016"
     ]
   },
   {
@@ -750,21 +761,26 @@ const enemies = [
   image:"img/shinnok.jpg",
   answers:[
     "mortal kombat x",
-    "mkx"
+    "mkx",
+    "mortal kombat",
+    "mk"
   ]
 },
 {
   image:"img/shaokahn.jpg",
   answers:[
     "mortal kombat 9",
-    "mk9"
+    "mk9",
+    "mk",
+    "mortal kombat"
   ]
 },
 {
   image:"img/oscuridad.jpg",
   answers:[
     "alan wake",
-    "alan wake remastered"
+    "alan wake remastered",
+    "alan wake 1"
   ]
 },
 {
@@ -772,6 +788,7 @@ const enemies = [
   answers:[
     "dishonored",
     "dishonored definitive edition"
+    "dishonored 1"
   ]
 },
 {
@@ -1007,19 +1024,32 @@ function correctAnswer(){
 }
 
 function wrongAnswer(){
+
   wrongSound.currentTime = 0;
   wrongSound.play().catch(() => {});
 
-  feedback.textContent = "WRONG — RUN RESET";
+  const correctGame = currentEnemy.answers[0];
+
+  feedback.innerHTML = `
+    WRONG — RUN RESET<br>
+    <span style="color:#ffffff;font-size:15px;font-weight:500;">
+      Correct game: <span style="color:#ff1e2d;font-weight:700;">
+        ${correctGame.toUpperCase()}
+      </span>
+    </span>
+  `;
+
   feedback.className = "feedback bad";
+
   score = 0;
   streak = 0;
   round = 1;
+
   updateStats();
 
   setTimeout(() => {
     pickRandomEnemy();
-  }, 900);
+  }, 2200);
 }
 
 function checkAnswer(){
