@@ -426,7 +426,7 @@ footer{
   <div class="content">
     <div class="enemy-card">
       <div class="enemy-image-wrap">
-        <img id="enemyImage" src="img/enemy1.jpg" alt="Enemy from a video game">
+        <img id="enemyImage" src="img/juggernaut.jpg" alt="Enemy from a video game">
         <div class="enemy-overlay"></div>
       </div>
     </div>
@@ -525,7 +525,7 @@ const enemies = [
     image:"img/javo.jpg",
     answers:[
       "resident evil 6",
-      "re6"
+      "re6",
       "re 6"
     ]
   },
@@ -602,7 +602,6 @@ const enemies = [
     answers:[
       "uncharted 2",
       "uncharted 2 among thieves"
-      "uncharted 3
     ]
   },
   {
@@ -679,7 +678,7 @@ const enemies = [
     image:"img/cacodemon.jpg",
     answers:[
       "doom",
-      "doom eternal"
+      "doom eternal",
       "doom 2016"
     ]
   },
@@ -705,120 +704,129 @@ const enemies = [
     ]
   },
   {
-  image:"img/hammermonk.jpg",
-  answers:[
-    "sekiro",
-    "sekiro shadows die twice"
-  ]
-},
-{
-  image:"img/nosalis.jpg",
-  answers:[
-    "metro",
-    "metro 2033",
-    "metro last light",
-    "metro exodus"
-  ]
-},
-{
-  image:"img/fatdemon.jpg",
-  answers:[
-    "cuphead"
-  ]
-},
-{
-  image:"img/vova6labtech.jpg",
-  answers:[
-    "atomic heart"
-  ]
-},
-{
-  image:"img/haxionbrood.jpg",
-  answers:[
-    "star wars jedi fallen order",
-    "star wars jedi survivor",
-    "jedi fallen order",
-    "jedi survivor"
-  ]
-},
-{
-  image:"img/solariiguardsman.jpg",
-  answers:[
-    "tomb raider",
-    "tomb raider 2013"
-  ]
-},
-{
-  image:"img/bison.jpg",
-  answers:[
-    "street fighter",
-    "street fighter 2",
-    "street fighter v",
-    "street fighter 6"
-  ]
-},
-{
-  image:"img/shinnok.jpg",
-  answers:[
-    "mortal kombat x",
-    "mkx",
-    "mortal kombat",
-    "mk"
-  ]
-},
-{
-  image:"img/shaokahn.jpg",
-  answers:[
-    "mortal kombat 9",
-    "mk9",
-    "mk",
-    "mortal kombat"
-  ]
-},
-{
-  image:"img/oscuridad.jpg",
-  answers:[
-    "alan wake",
-    "alan wake remastered",
-    "alan wake 1"
-  ]
-},
-{
-  image:"img/guardiasdishonored.jpg",
-  answers:[
-    "dishonored",
-    "dishonored definitive edition"
-    "dishonored 1"
-  ]
-},
-{
-  image:"img/burroloco.jpg",
-  answers:[
-    "lies of p"
-  ]
-},
-{
-  image:"img/greaterdog.jpg",
-  answers:[
-    "undertale"
-  ]
-},
-{
-  image:"img/thepain.jpg",
-  answers:[
-    "metal gear solid 3",
-    "metal gear solid delta",
-    "mgs3",
-    "mgs delta"
-  ]
-},
-{
-  image:"img/bulletking.jpg",
-  answers:[
-    "enter the gungeon"
-  ]
-},
- {
+    image:"img/hammermonk.jpg",
+    answers:[
+      "sekiro",
+      "sekiro shadows die twice"
+    ]
+  },
+  {
+    image:"img/nosalis.jpg",
+    answers:[
+      "metro",
+      "metro 2033",
+      "metro last light",
+      "metro exodus"
+    ]
+  },
+  {
+    image:"img/fatdemon.jpg",
+    answers:[
+      "cuphead"
+    ]
+  },
+  {
+    image:"img/vova6labtech.jpg",
+    answers:[
+      "atomic heart"
+    ]
+  },
+  {
+    image:"img/haxionbrood.jpg",
+    answers:[
+      "star wars jedi fallen order",
+      "star wars jedi survivor",
+      "jedi fallen order",
+      "jedi survivor"
+    ]
+  },
+  {
+    image:"img/solariiguardsman.jpg",
+    answers:[
+      "tomb raider",
+      "tomb raider 2013"
+    ]
+  },
+  {
+    image:"img/bison.jpg",
+    answers:[
+      "street fighter",
+      "street fighter 2",
+      "street fighter v",
+      "street fighter 6"
+    ]
+  },
+  {
+    image:"img/shinnok.jpg",
+    answers:[
+      "mortal kombat x",
+      "mkx",
+      "mortal kombat",
+      "mk"
+    ]
+  },
+  {
+    image:"img/shaokahn.jpg",
+    answers:[
+      "mortal kombat 9",
+      "mk9",
+      "mortal kombat",
+      "mk"
+    ]
+  },
+  {
+    image:"img/baraka.jpg",
+    answers:[
+      "mortal kombat shaolin monks",
+      "mk shaolin monks",
+      "mortal kombat",
+      "mk"
+    ]
+  },
+  {
+    image:"img/oscuridad.jpg",
+    answers:[
+      "alan wake",
+      "alan wake remastered",
+      "alan wake 1"
+    ]
+  },
+  {
+    image:"img/guardiasdishonored.jpg",
+    answers:[
+      "dishonored",
+      "dishonored definitive edition",
+      "dishonored 1"
+    ]
+  },
+  {
+    image:"img/burroloco.jpg",
+    answers:[
+      "lies of p"
+    ]
+  },
+  {
+    image:"img/greaterdog.jpg",
+    answers:[
+      "undertale"
+    ]
+  },
+  {
+    image:"img/thepain.jpg",
+    answers:[
+      "metal gear solid 3",
+      "metal gear solid delta",
+      "mgs3",
+      "mgs delta"
+    ]
+  },
+  {
+    image:"img/bulletking.jpg",
+    answers:[
+      "enter the gungeon"
+    ]
+  },
+  {
     image:"img/bonebreaker.jpg",
     answers:[
       "diablo",
@@ -1024,7 +1032,6 @@ function correctAnswer(){
 }
 
 function wrongAnswer(){
-
   wrongSound.currentTime = 0;
   wrongSound.play().catch(() => {});
 
@@ -1081,43 +1088,43 @@ function buildCoverWall(){
   if(!wall) return;
 
   const positions = [
-  { top:"1%", left:"1%", rot:"-8deg" },
-  { top:"3%", left:"11%", rot:"5deg" },
-  { top:"2%", left:"21%", rot:"-4deg" },
-  { top:"4%", left:"31%", rot:"6deg" },
-  { top:"1%", left:"41%", rot:"-5deg" },
-  { top:"3%", left:"51%", rot:"4deg" },
-  { top:"2%", left:"61%", rot:"-6deg" },
-  { top:"4%", left:"71%", rot:"5deg" },
-  { top:"1%", left:"81%", rot:"-4deg" },
+    { top:"1%", left:"1%", rot:"-8deg" },
+    { top:"3%", left:"11%", rot:"5deg" },
+    { top:"2%", left:"21%", rot:"-4deg" },
+    { top:"4%", left:"31%", rot:"6deg" },
+    { top:"1%", left:"41%", rot:"-5deg" },
+    { top:"3%", left:"51%", rot:"4deg" },
+    { top:"2%", left:"61%", rot:"-6deg" },
+    { top:"4%", left:"71%", rot:"5deg" },
+    { top:"1%", left:"81%", rot:"-4deg" },
 
-  { top:"28%", left:"0%", rot:"4deg" },
-  { top:"30%", left:"10%", rot:"-6deg" },
-  { top:"27%", left:"20%", rot:"5deg" },
-  { top:"29%", left:"30%", rot:"-4deg" },
-  { top:"31%", left:"40%", rot:"6deg" },
-  { top:"28%", left:"50%", rot:"-5deg" },
-  { top:"30%", left:"60%", rot:"4deg" },
-  { top:"27%", left:"70%", rot:"-6deg" },
-  { top:"29%", left:"80%", rot:"5deg" },
+    { top:"28%", left:"0%", rot:"4deg" },
+    { top:"30%", left:"10%", rot:"-6deg" },
+    { top:"27%", left:"20%", rot:"5deg" },
+    { top:"29%", left:"30%", rot:"-4deg" },
+    { top:"31%", left:"40%", rot:"6deg" },
+    { top:"28%", left:"50%", rot:"-5deg" },
+    { top:"30%", left:"60%", rot:"4deg" },
+    { top:"27%", left:"70%", rot:"-6deg" },
+    { top:"29%", left:"80%", rot:"5deg" },
 
-  { top:"55%", left:"2%", rot:"-5deg" },
-  { top:"58%", left:"12%", rot:"6deg" },
-  { top:"54%", left:"22%", rot:"-4deg" },
-  { top:"57%", left:"32%", rot:"5deg" },
-  { top:"55%", left:"42%", rot:"-6deg" },
-  { top:"58%", left:"52%", rot:"4deg" },
-  { top:"54%", left:"62%", rot:"-5deg" },
-  { top:"57%", left:"72%", rot:"6deg" },
-  { top:"55%", left:"82%", rot:"-4deg" },
+    { top:"55%", left:"2%", rot:"-5deg" },
+    { top:"58%", left:"12%", rot:"6deg" },
+    { top:"54%", left:"22%", rot:"-4deg" },
+    { top:"57%", left:"32%", rot:"5deg" },
+    { top:"55%", left:"42%", rot:"-6deg" },
+    { top:"58%", left:"52%", rot:"4deg" },
+    { top:"54%", left:"62%", rot:"-5deg" },
+    { top:"57%", left:"72%", rot:"6deg" },
+    { top:"55%", left:"82%", rot:"-4deg" },
 
-  { top:"80%", left:"5%", rot:"5deg" },
-  { top:"82%", left:"18%", rot:"-6deg" },
-  { top:"79%", left:"31%", rot:"4deg" },
-  { top:"81%", left:"44%", rot:"-5deg" },
-  { top:"80%", left:"57%", rot:"6deg" },
-  { top:"82%", left:"70%", rot:"-4deg" }
-];
+    { top:"80%", left:"5%", rot:"5deg" },
+    { top:"82%", left:"18%", rot:"-6deg" },
+    { top:"79%", left:"31%", rot:"4deg" },
+    { top:"81%", left:"44%", rot:"-5deg" },
+    { top:"80%", left:"57%", rot:"6deg" },
+    { top:"82%", left:"70%", rot:"-4deg" }
+  ];
 
   coverPaths.forEach((src, i) => {
     const pos = positions[i % positions.length];
