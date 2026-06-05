@@ -117,13 +117,11 @@ body{
 
 .cover-tile{
   position:absolute;
-  width:180px;
-  height:260px;
-  border-radius:16px;
+  width:260px;
+  height:380px;
   overflow:hidden;
-  border:1px solid rgba(255,255,255,.08);
-  box-shadow:0 12px 30px rgba(0,0,0,.55);
-  opacity:.92;
+  border-radius:14px;
+  opacity:.55;
   transform:rotate(var(--rot));
   z-index:1;
 }
@@ -1239,68 +1237,41 @@ nextBtn.addEventListener("click", () => {
 function buildCoverWall(){
   if(!wall) return;
 
-  const positions = [
-    { top:"1%", left:"1%", rot:"-8deg" },
-    { top:"3%", left:"11%", rot:"5deg" },
-    { top:"2%", left:"21%", rot:"-4deg" },
-    { top:"4%", left:"31%", rot:"6deg" },
-    { top:"1%", left:"41%", rot:"-5deg" },
-    { top:"3%", left:"51%", rot:"4deg" },
-    { top:"2%", left:"61%", rot:"-6deg" },
-    { top:"4%", left:"71%", rot:"5deg" },
-    { top:"1%", left:"81%", rot:"-4deg" },
+  wall.innerHTML = "";
 
-    { top:"28%", left:"0%", rot:"4deg" },
-    { top:"30%", left:"10%", rot:"-6deg" },
-    { top:"27%", left:"20%", rot:"5deg" },
-    { top:"29%", left:"30%", rot:"-4deg" },
-    { top:"31%", left:"40%", rot:"6deg" },
-    { top:"28%", left:"50%", rot:"-5deg" },
-    { top:"30%", left:"60%", rot:"4deg" },
-    { top:"27%", left:"70%", rot:"-6deg" },
-    { top:"29%", left:"80%", rot:"5deg" },
+  const overlapX = 140;
+  const overlapY = 180;
 
-    { top:"55%", left:"2%", rot:"-5deg" },
-    { top:"58%", left:"12%", rot:"6deg" },
-    { top:"54%", left:"22%", rot:"-4deg" },
-    { top:"57%", left:"32%", rot:"5deg" },
-    { top:"55%", left:"42%", rot:"-6deg" },
-    { top:"58%", left:"52%", rot:"4deg" },
-    { top:"54%", left:"62%", rot:"-5deg" },
-    { top:"57%", left:"72%", rot:"6deg" },
-    { top:"55%", left:"82%", rot:"-4deg" },
+  const cols = Math.ceil(window.innerWidth / overlapX) + 4;
+  const rows = Math.ceil(window.innerHeight / overlapY) + 4;
 
-    { top:"80%", left:"5%", rot:"5deg" },
-    { top:"82%", left:"18%", rot:"-6deg" },
-    { top:"79%", left:"31%", rot:"4deg" },
-    { top:"81%", left:"44%", rot:"-5deg" },
-    { top:"80%", left:"57%", rot:"6deg" },
-    { top:"82%", left:"70%", rot:"-4deg" }
-  ];
+  for(let row = 0; row < rows; row++){
+    for(let col = 0; col < cols; col++){
 
-  coverPaths.forEach((src, i) => {
-    const pos = positions[i % positions.length];
+      const tile = document.createElement("div");
+      tile.className = "cover-tile";
 
-    const tile = document.createElement("div");
-    tile.className = "cover-tile";
-    tile.style.top = pos.top;
-    tile.style.left = pos.left;
-    tile.style.setProperty("--rot", pos.rot);
+      const randomCover =
+        coverPaths[Math.floor(Math.random() * coverPaths.length)];
 
-    const img = document.createElement("img");
-    img.src = src;
-    img.alt = "";
-    img.loading = "lazy";
+      tile.style.left = `${col * overlapX}px`;
+      tile.style.top = `${row * overlapY}px`;
 
-    img.onerror = () => {
-      tile.remove();
-    };
+      tile.style.setProperty(
+        "--rot",
+        `${Math.floor(Math.random()*12)-6}deg`
+      );
 
-    tile.appendChild(img);
-    wall.appendChild(tile);
-  });
+      const img = document.createElement("img");
+      img.src = randomCover;
+      img.alt = "";
+
+      tile.appendChild(img);
+      wall.appendChild(tile);
+    }
+  }
 }
-
+  
 buildCoverWall();
 pickRandomEnemy();
 updateStats();
